@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulnerable Calculator</title>
+</head>
+<body>
+    <h1>Vulnerable Calculator</h1>
+    <label for="expression">Enter a mathematical expression:</label>
+    <input type="text" id="expression" placeholder="e.g., 5 + 10">
+    <button onclick="calculate()">Calculate</button>
+    <p>Result: <span id="result"></span></p>
+    <!-- UNSECURE -->
+    <script>
+        function calculate() {
+            const expression = document.getElementById('expression').value;
+            try {
+                // VULNERABLE: Evaluates user-provided input as code
+                const result = eval(expression);
+                document.getElementById('result').innerText = result;
+            } catch (error) {
+                document.getElementById('result').innerText = 'Error: Invalid expression!';
+            }
+        }
+    </script>
+    <!-- SECURE -->
+    <!-- <script>
+        function calculate() {
+            const expression = document.getElementById('expression').value;
+            // Permetti solo numeri, operatori matematici e spazi
+            const safeExpression = /^[0-9+\-*/().\s]*$/.test(expression);
+            if (!safeExpression) {
+                document.getElementById('result').innerText = 'Error: Invalid input!';
+                return;
+            }
+            try {
+                // Usa Function per valutare solo espressioni matematiche
+                const result = Function('"use strict";return (' + expression + ')')();
+                document.getElementById('result').innerText = result;
+            } catch (error) {
+                document.getElementById('result').innerText = 'Error: Invalid expression!';
+            }
+        }
+    </script> -->
+</body>
+</html>
