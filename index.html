@@ -12,7 +12,7 @@
     <button onclick="calculate()">Calculate</button>
     <p>Result: <span id="result"></span></p>
     <!-- UNSECURE -->
-    <script>
+    <!-- <script>
         function calculate() {
             const expression = document.getElementById('expression').value;
             try {
@@ -23,17 +23,22 @@
                 document.getElementById('result').innerText = 'Error: Invalid expression!';
             }
         }
-    </script>
+    </script> -->
     <!-- SECURE -->
-    <!-- <script>
+    <script>
         function calculate() {
+            // Prendi input dall'utente
             const expression = document.getElementById('expression').value;
+
             // Permetti solo numeri, operatori matematici e spazi
             const safeExpression = /^[0-9+\-*/().\s]*$/.test(expression);
+
+            //  Se l'input contiene caratteri non validi, mostra un errore
             if (!safeExpression) {
                 document.getElementById('result').innerText = 'Error: Invalid input!';
                 return;
             }
+
             try {
                 // Usa Function per valutare solo espressioni matematiche
                 const result = Function('"use strict";return (' + expression + ')')();
@@ -42,6 +47,6 @@
                 document.getElementById('result').innerText = 'Error: Invalid expression!';
             }
         }
-    </script> -->
+    </script>
 </body>
 </html>
